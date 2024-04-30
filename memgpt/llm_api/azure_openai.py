@@ -97,6 +97,7 @@ def azure_openai_chat_completions_request(
 
     printd(f"Sending request to {url}")
     try:
+        data["messages"] = [x.to_openai_dict()  for x in data["messages"]]
         response = requests.post(url, headers=headers, json=data)
         printd(f"response = {response}")
         response.raise_for_status()  # Raises HTTPError for 4XX/5XX status
